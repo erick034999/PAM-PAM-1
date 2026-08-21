@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import ListaPersona from './components/ListaPersona';
+import ListaPersonaAuto from './components/ListaPersonaAuto';
+import SeletorPersona from './components/SeletorPersona';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // Escolha qual componente você quer renderizar, ListaPersona ou ListaPersonaAuto
+    // É só comentar o que não quer usar e descomentar o que quer usar
+    // <ListaPersona/>
+  //  <ListaPersonaAuto />
+     <SeletorPersona />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
