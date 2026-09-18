@@ -72,4 +72,15 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
     },
+    Nomejogador: {
+        fontSize: 18,
+        color: '#fff',
+        marginBottom: 4,
+        borderWidth: 2,
+        borderColor: '#7c5cff',
+        borderRadius: 12,
+        width: 200,
+        padding: 10,
+        textAlign: 'center',
+    },
 });

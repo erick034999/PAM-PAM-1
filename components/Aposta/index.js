@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import estilo from './estilo';
 
 const TOTAL_RODADAS = 5;
 
 export default function Aposta() {
+    
     const [numero, setNumero] = useState('');
     const [sorteado, setSorteado] = useState(null);
     const [rodada, setRodada] = useState(1);
     const [pontos, setPontos] = useState(0);
     const fim = rodada > TOTAL_RODADAS;
-
+    const [nomeJogador, setNomeJogador] = useState('');
+    const Tab = createBottomTabNavigator();
+    
     function sortear() {
         if (fim || numero === '') return;
         const gerado = Math.floor(Math.random() * 100);
@@ -31,31 +36,36 @@ export default function Aposta() {
 
     return (
         <View style={estilo.container}>
-            <Text style={estilo.title}>🎲 Jogo da Aposta</Text>
+            <Text style={estilo.title}>Jogo da Aposta</Text>
+            {
+                !fim ? 
+                (
+                    <>
+                    <TextInput style={estilo.Nomejogador} placeholder="Nome do jogador" value={nomeJogador} onChangeText={setNomeJogador}/>
+                        <Text style={estilo.rodada}>Rodada {rodada} de {TOTAL_RODADAS}</Text>
 
-            {fim ? (
-                <Text style={estilo.fim}>Fim de jogo! Pontuação final: {pontos}</Text>
-            ) : (
-                <>
-                    <Text style={estilo.rodada}>Rodada {rodada} de {TOTAL_RODADAS}</Text>
+                        <TextInput
+                            style={estilo.input}
+                            value={numero}
+                            onChangeText={setNumero}
+                            keyboardType="numeric"
+                            placeholder="0-99"
+                            maxLength={2}
+                        />
 
-                    <TextInput
-                        style={estilo.input}
-                        value={numero}
-                        onChangeText={setNumero}
-                        keyboardType="numeric"
-                        placeholder="0-99"
-                        maxLength={2}
-                    />
+                        <Pressable style={estilo.botao} onPress={sortear}>
+                            <Text style={estilo.botaoTexto}>Sortear</Text>
+                        </Pressable>
 
-                    <Pressable style={estilo.botao} onPress={sortear}>
-                        <Text style={estilo.botaoTexto}>Sortear</Text>
-                    </Pressable>
-
-                    <Text style={estilo.sorteado}>Sorteado: {sorteado ?? '?'}</Text>
-                    <Text style={estilo.pontos}>Pontos: {pontos}</Text>
-                </>
-            )}
+                        <Text style={estilo.sorteado}>Sorteado: {sorteado ?? '?'}</Text>
+                        <Text style={estilo.pontos}>Pontos: {pontos}</Text>
+                    </>
+                ) 
+                :
+                (
+                    <Text style={estilo.fim}>Fim de jogo {nomeJogador}! Pontuação final: {pontos}/500</Text>
+                )
+            }
 
             <Pressable style={estilo.botaoReiniciar} onPress={reiniciar}>
                 <Text style={estilo.botaoReiniciarTexto}>Reiniciar</Text>
